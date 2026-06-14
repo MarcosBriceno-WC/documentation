@@ -1,31 +1,5 @@
----
-title: Notes
----
+The current page reads like a feature inventory rather than a task guide. It lists options without orienting the reader, uses sections that are too short to act on, and relies on lists where numbered steps would serve better. Instructions also lack the context needed to execute them. Telling users to "Click Connect MCP at the bottom of the sidebar" without explaining where that sidebar lives, or providing configuration file snippets without specifying which file to edit or where to find it, leaves users stuck. Someone unfamiliar with MCPs would need to leave the page entirely just to find a file path, which is exactly where onboarding drops off.
 
-## What was wrong with the original page
+The rewrite reorganizes the page around the three connection methods as distinct, sequential flows, each with numbered steps, prerequisites, and a verification moment so users know when they're done. Client-specific instructions were expanded to cover Claude Desktop (with config paths for macOS and Windows), Claude Code, VS Code, and Windsurf, since the original assumed users already knew which method they wanted.
 
-The original page read like a feature inventory rather than a task guide. It opened by listing connection methods before the reader had any orientation. There were no prerequisites, no sense of sequence, and no indication of what success looks like at the end. Other specific problems:
-
-- The Claude Desktop section was missing its config file paths entirely
-- There were no client-specific instructions for Claude Code or Windsurf
-- The page assumed the reader already knew which connection method they wanted, when most first-timers don't
-
-## What changed and why
-
-The rewrite is organized around the three connection methods as distinct, sequential flows: MCP Gateway, Dynamic MCP, and CLI. Each is broken into numbered steps so a reader can follow without holding context in their head. Specific additions:
-
-- A Prerequisites section at the top: a two-line checklist that catches the most common failure reasons before the user even starts
-- Client instructions expanded to cover Claude Desktop (with config paths for macOS and Windows), Claude Code (CLI command), VS Code (`.vscode/mcp.json` with the `type: http` field and quick-setup button), and Windsurf (Settings UI path)
-- A Verify section at the end, since the original had no success state and users had no way to know if they were done
-- Troubleshooting restructured into an accordion so it doesn't bulk up the happy path but stays findable
-
-The tone shift was deliberate: shorter sentences, imperative verbs, no filler phrases. The Supademo embeds replace static screenshots for the three connection flows, which is the right call for a UI that will change.
-
-## What I'd do next if this were my account
-
-The Getting Started page has the same structural problem: it reads like a glossary rather than a directed path through the first session. Beyond that:
-
-- Rewrite Getting Started around a single goal: get from sign-in to your first tool call
-- Give the Skills and Commands pages the same treatment this page got: prerequisites, numbered steps, a verification moment
-- Establish a shared troubleshooting pattern across all pages, since each currently handles it differently
-- Add a decision guide somewhere early that helps users choose between Standard Gateway, Dynamic MCP, and CLI before they land on the wrong one and have to backtrack
+If this were my account, I'd apply the same treatment to Getting Started, which currently reads like a glossary rather than a directed path, and give Skills and Commands the same structural overhaul. I'd also add a decision guide early in the docs to help users choose between connection methods before they land on the wrong page and have to backtrack.
