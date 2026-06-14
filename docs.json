@@ -11,26 +11,13 @@
   "navigation": {
     "pages": [
       {
-        "group": "Getting Started",
+        "group": "MCP Servers",
         "pages": [
-          "index",
-          "quickstart"
+          "connect-mcp-rewrite"
         ]
       }
     ],
     "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
     }
   },
   "logo": {

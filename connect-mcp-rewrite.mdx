@@ -1,0 +1,275 @@
+---
+title: Connect MCP
+---
+
+Once your AI client is connected to Willow, it can call tools across every integration your team has set up (GitHub, Jira, Figma, Slack, and anything else that's enabled) without you configuring each one separately. Willow handles authentication and access control centrally, so you connect once and get everything your role permits.
+
+Willow supports three connection methods via Model Context Protocol (MCP). Choose the one that fits your client and workflow:
+
+- **MCP Gateway**: connects your client to a specific server via a Streamable HTTP URL. The simplest method and the right starting point for most users.
+- **Dynamic MCP**: connects your client to all enabled servers through a single URL. The gateway selects the most relevant tools automatically based on what you're asking. Best when you want broad access without managing multiple URLs.
+- **MCP CLI**: runs a local MCP server on your machine and connects via stdio transport. Use this if your client doesn't support HTTP-based MCP, or if your organization requires traffic to stay local.
+
+## Prerequisites
+
+Before you start, ensure the following:
+
+- You're signed into Willow
+- At least one server is enabled on your [MCP Servers](/user/mcp-servers) page (Use toggle is on, status indicator is green)
+
+## MCP Gateway connection
+
+The MCP Gateway exposes a single server as a Streamable HTTP endpoint. It's the simplest connection method and works with every client that supports HTTP-based MCP transport. You get one URL per server. Paste it into your client and you're done.
+
+To connect via the MCP Gateway follow these steps: 
+
+<Steps>
+
+<Step title="Open the connection dialog">
+
+1. Click **Connect MCP** at the bottom of the left sidebar. 
+2. Select the **MCP Gateway** tab.
+
+*[IMAGE: Connect MCP dialog with MCP Gateway tab selected, showing the Streamable HTTP URL]*
+
+</Step>
+
+<Step title="Copy the Streamable HTTP URL">
+
+ The tab will display the Streamable HTTP URL so you can copy it. It looks like this:
+
+```
+https://<org>.mcp-s.com/mcp?mcp=<server-name>
+```
+Where:
+
+- `<org>` is your organization's subdomain, visible in your browser's address bar when you're logged into Willow (e.g., `acme` in `acme.withwillow.ai`).
+- `<server-name>` is the slug for the server you want to expose: `github`, `jira`, `figma`, etc. Find the exact slug on the server's card on your MCP Servers page.
+
+</Step>
+
+<Step title="Configure the client">
+
+The dialog shows icons for various MCP clients, select yours from the list in the dialog and follow the instructions below.
+
+<Note title="Quick setup">
+  **Cursor** and **VS Code** have a quick setup button which automatically detects the URL and configures the client for you. For other clients, follow the manual setup instructions.
+</Note>
+  
+<Tabs>
+
+<Tab title="Cursor">
+
+In the dialog, click **Add to Cursor**. This automatically adds the URL to your Cursor MCP settings and restarts Cursor for you. If you prefer to add it manually, follow the instructions below.
+
+1. Open `.cursor/mcp.json` in your project root. For a global setup, use `~/.cursor/mcp.json`. Create the file if it doesn't exist.
+2. Add the following, replacing the URL with the one you copied in Step 2:
+   ```json
+   {
+     "mcpServers": {
+       "willow": {
+         "url": "https://<org>.mcp-s.com/mcp?mcp=github"
+       }
+     }
+   }
+   ```
+3. Restart Cursor, or open **Settings → Features → MCP** and click **Refresh**.
+
+*[IMAGE: Cursor Settings → Features → MCP panel showing the Willow server with a green active indicator]*
+
+</Tab>
+
+<Tab title="Claude Desktop">
+
+To connect Claude Desktop follow the instructions below:
+
+1. Open your config file:
+   - **macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
+   - **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
+2. Add the `mcpServers` block. If the file already has one, add the `willow` entry inside the existing block:
+   ```json
+   {
+     "mcpServers": {
+       "willow": {
+         "url": "https://<org>.mcp-s.com/mcp?mcp=github"
+       }
+     }
+   }
+   ```
+3. Quit and reopen Claude Desktop.
+
+*[IMAGE: Claude Desktop chat showing a Willow tool call inline, e.g. "Used willow: list_pull_requests"]*
+
+</Tab>
+
+<Tab title="Claude Code">
+
+To connect Claude Code follow the instructions below:
+
+1. Run the following in your terminal, replacing the URL with the one you copied in Step 2:
+   ```bash
+   claude mcp add willow --transport http "https://<org>.mcp-s.com/mcp?mcp=github"
+   ```
+2. Verify it was added:
+   ```bash
+   claude mcp list
+   ```
+
+</Tab>
+
+<Tab title="VS Code">
+
+In the dialog, click **Add to VS Code**. This automatically adds the URL to your VS Code MCP settings and restarts VS Code for you. If you prefer to add it manually, follow the instructions below.
+
+1. Open or create `.vscode/mcp.json` in your workspace root.
+2. Add your Willow server:
+   ```json
+   {
+     "servers": {
+       "willow": {
+         "url": "https://<org>.mcp-s.com/mcp?mcp=github",
+         "type": "http"
+       }
+     }
+   }
+   ```
+3. VS Code detects the file automatically. If you see a prompt to enable the server, click **Allow**.
+
+</Tab>
+
+<Tab title="Windsurf">
+
+To connect Windsurf, follow the instructions below:
+
+1. Go to **Settings → MCP Servers**.
+2. Click **Add Server** and select **HTTP** as the transport.
+3. Enter the URL you copied in Step 2.
+4. Save and restart Windsurf.
+
+</Tab>
+
+<Tab title="Internal AI Chat">
+
+No setup needed. Willow's built-in chat connects automatically. All servers you've enabled are available the moment you start a conversation.
+
+</Tab>
+
+</Tabs>
+
+</Step>
+
+</Steps>
+
+## Dynamic MCP connection
+
+The Dynamic MCP Gateway connects your AI client to all servers enabled in your workspace through a single URL. Rather than targeting one server by name, the gateway selects the most relevant tools automatically based on the context of your conversation. Use this when you want broad access without managing multiple server URLs.
+
+<Steps>
+
+<Step title="Open the connection dialog">
+
+1. Click **Connect MCP** at the bottom of the left sidebar. 
+2. Select the **Dynamic MCP** tab.
+
+*[IMAGE: Connect MCP dialog with Dynamic MCP tab selected, showing the Dynamic MCP URL]*
+
+</Step>
+
+<Step title="Copy the Dynamic MCP URL">
+
+The Dynamic MCP tab displays your URL. Copy it.
+
+```
+https://<org>.mcp-s.com/dmcp
+```
+Where `<org>` is your organization's subdomain, visible in your browser's address bar when you're logged into Willow (e.g., `acme` in `acme.withwillow.ai`).
+
+</Step>
+
+<Step title="Add the URL to your client">
+
+Use the same client instructions as [MCP Gateway](#mcp-gateway-connection), substituting the Dynamic MCP URL in place of the MCP Gateway URL.
+
+</Step>
+
+</Steps>
+
+## MCP CLI connection
+
+The MCP CLI runs a local MCP server on your machine and connects your AI client via stdio transport. Use this method if your client doesn't support HTTP-based MCP, or if your organization requires traffic to stay local rather than routing through a remote endpoint.
+
+<Steps>
+
+<Step title="Open the connection dialog">
+
+Click **Connect MCP** at the bottom of the left sidebar. Select the **CLI** tab.
+
+*[IMAGE: Connect MCP dialog with CLI tab selected]*
+
+</Step>
+
+<Step title="Follow the CLI setup instructions">
+
+The CLI tab shows the install command and configuration specific to your organization. Copy and run the commands shown.
+
+</Step>
+
+</Steps>
+
+## Verify it's working
+
+Once connected, try a prompt that uses one of your enabled tools. If you connected GitHub use something like:
+
+> "List my open pull requests."
+
+Your AI client should call a Willow tool to answer it. In Cursor, a tool call indicator appears in the chat sidebar. In Claude Desktop, it appears inline in the conversation.
+
+*[GIF/VIDEO: Cursor prompt triggers a Willow tool call and returns results]*
+
+If tools don't appear, see [Troubleshooting](#troubleshooting).
+
+## Troubleshooting
+
+<AccordionGroup>
+
+<Accordion title="Tools don't show up after connecting">
+
+Check the following:
+
+- On your MCP Servers page, confirm the server's Use toggle is on and the status indicator is green. If it's not connected, click the server card and follow the authentication steps.
+- Restart your AI client. Most clients don't pick up config file changes until restart.
+- Double-check the `<org>` subdomain and `<server-name>` values in your URL.
+
+</Accordion>
+
+<Accordion title="Authentication errors when calling tools">
+
+Try the following:
+
+- Make sure you're signed into Willow in your browser.
+- If your org requires VPN access, connect before using Willow tools.
+- If your session has expired, sign in again and retry.
+
+</Accordion>
+
+<Accordion title="Dynamic MCP returns unexpected or missing tools">
+
+The gateway selects tools based on conversation context. This is expected behavior. For a predictable, fixed tool set, switch to the [MCP Gateway](#mcp-gateway-connection) and connect a specific server instead.
+
+</Accordion>
+
+</AccordionGroup>
+
+## See Also
+
+<CardGroup cols={3}>
+  <Card title="MCP Servers" icon="server" href="/user/mcp-servers">
+    Browse and enable integrations in your workspace.
+  </Card>
+  <Card title="Skills" icon="bolt" href="/user/skills">
+    Run pre-built prompts your team has configured, directly from your AI client.
+  </Card>
+  <Card title="Commands" icon="terminal" href="/user/commands">
+    Shortcuts for common actions across your connected tools.
+  </Card>
+</CardGroup>
