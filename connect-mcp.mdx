@@ -2,24 +2,33 @@
 title: Connect MCP
 ---
 
-Once your AI client is connected to Willow, it can call tools across every integration your team has set up (GitHub, Jira, Figma, Slack, and anything else that's enabled) without you configuring each one separately. Willow handles authentication and access control centrally, so you connect once and get everything your role permits.
+Once your AI client is connected to Willow, it can call tools across every integration your team has set up without you configuring each one separately. Willow handles authentication and access control centrally, so you connect once and get everything your role permits.
 
-Willow supports three connection methods via Model Context Protocol (MCP). Choose the one that fits your client and workflow:
+Configuring the connection is a two-step process
 
-- **MCP Gateway**: connects your client to a specific server via a Streamable HTTP URL. The simplest method and the right starting point for most users.
-- **Dynamic MCP**: connects your client to all enabled servers through a single URL. The gateway selects the most relevant tools automatically based on what you're asking. Best when you want broad access without managing multiple URLs.
-- **MCP CLI**: runs a local MCP server on your machine and connects via stdio transport. Use this if your client doesn't support HTTP-based MCP, or if your organization requires traffic to stay local.
+1. [Choose your connection method](#step-1-choose-your-connection-method)
+2. [Setup your client](#step-2-client-setup)
 
 ## Prerequisites
 
 Before you start, ensure the following:
 
-- You're signed into Willow
+- You're signed into [Willow](https://app.withwillow.ai/login) and have access to your organization basecamp.
 - At least one server is enabled on your [MCP Servers](/user/mcp-servers) page (Use toggle is on, status indicator is green)
 
-## MCP Gateway connection
+## Step 1: Choose your connection method
 
-The MCP Gateway exposes a single server as a Streamable HTTP endpoint. It's the simplest connection method and works with every client that supports HTTP-based MCP transport. You get one URL per server. Paste it into your client and you're done.
+Willow supports three connection methods via Model Context Protocol (MCP).
+
+- [**MCP Gateway**](#mcp-gateway-connection): connects your client to a specific server via a Streamable HTTP URL. The simplest method and the right starting point for most users.
+- [**Dynamic MCP**](#dynamic-mcp-connection): connects your client to all enabled servers through a single URL. 
+- [**MCP-S CLI**](#mcp-s-cli-connection): runs a local MCP server on your machine and connects via STDIO transport.
+
+Choose the one that fits your client and workflow:
+
+### MCP Gateway connection
+
+This method exposes a single server as a Streamable HTTP endpoint. You get one URL per server which you can paste into your client.
 
 To connect via the MCP Gateway follow these steps: 
 
@@ -27,14 +36,12 @@ To connect via the MCP Gateway follow these steps:
 
 <Step title="Open the connection dialog">
 
-1. Click **Connect MCP** at the bottom of the left sidebar. 
+1. In your organization basecamp, click **Connect MCP** at the bottom of the left sidebar. 
 2. Select the **MCP Gateway** tab.
 
-  <iframe 
-  src="https://app.supademo.com/embed/cmqe6lwpb2j3tqmgj7mkxqxou?embed_v=2&utm_source=embed"
-  title="Connect MCP demo"
-  >
-  </iframe>
+  <div style={{position: "relative", boxSizing: "content-box", maxHeight: "80svh", width: "100%", aspectRatio: "1.60", padding: 0}}>
+    <iframe src="https://app.supademo.com/embed/cmqe6lwpb2j3tqmgj7mkxqxou?embed_v=2&utm_source=embed" loading="lazy" title="MCP Gateway" allow="clipboard-write" frameBorder="0" allowFullScreen style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%"}}></iframe>
+  </div>
 
 </Step>
 
@@ -52,14 +59,64 @@ Where:
 
 </Step>
 
-<Step title="Configure the client">
+</Steps>
 
-The dialog shows icons for various MCP clients, select yours from the list in the dialog and follow the instructions below.
+Once you retrieved your URL, follow the [client setup instructions](#configure-your-client) for your specific AI client.
+
+### Dynamic MCP connection
+
+The Dynamic MCP Gateway connects your AI client to all servers enabled in your [Willow dashboard](https://app.withwillow.ai/dashboard) through a single URL. Rather than targeting one server by name, the gateway selects the most relevant tools automatically based on the context of your conversation. Use this when you want broad access without managing multiple server URLs.
+
+To configure the Dynamic MCP connection, follow these steps: 
+
+<Steps>
+
+<Step title="Open the connection dialog">
+
+1. Click **Connect MCP** at the bottom of the left sidebar. 
+2. Select the **Dynamic MCP** tab.
+
+  <div style={{position: "relative", boxSizing: "content-box", maxHeight: "80svh", width: "100%", aspectRatio: "1.60", padding: 0}}>
+    <iframe src="https://app.supademo.com/embed/cmqe7ntly2kcqqmgjyp90uf9t?embed_v=2&utm_source=embed" loading="lazy" title="Dynamic MCP" allow="clipboard-write" frameBorder="0" allowFullScreen style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%"}}></iframe>
+  </div>
+
+</Step>
+
+<Step title="Copy the Dynamic MCP URL">
+
+The Dynamic MCP tab displays your URL. Copy it.
+
+```
+https://<org>.mcp-s.com/dmcp
+```
+Where `<org>` is your organization's subdomain, visible in your browser's address bar when you're logged into Willow (e.g., `acme` in `acme.withwillow.ai`).
+
+</Step>
+
+</Steps>
+
+Once you have the Dynamic MCP URL, follow the [client setup instructions](#configure-your-client) for your specific AI client.
+
+### MCP-S CLI connection
+
+Use this method if your client doesn't support HTTP-based MCP, or if your organization requires traffic to stay local rather than routing through a remote endpoint.
+
+To configure the CLI connection, follow these steps:
+
+<iframe src="https://app.supademo.com/embed/cmqe7ze6q01k8xl0kk2meh7gl?embed_v=2&utm_source=embed" width="100%" style={{aspectRatio: "16/9", border: "none"}}></iframe>
+
+1. Click **Connect MCP** at the bottom of the left sidebar. 
+2. Select the **MCP-S CLI** tab.
+3. The tab shows the install command and configuration specific to your organization. Copy and run the commands shown.
+
+## Step 2: Client Setup
+
+Willow's MCP connections are compatible with any AI client that supports the protocol, but the setup process varies. Follow the instructions for your specific client below.
 
 <Note title="Quick setup">
   **Cursor** and **VS Code** have a quick setup button which automatically detects the URL and configures the client for you. For other clients, follow the manual setup instructions.
 </Note>
-  
+
 <Tabs>
 
 <Tab title="Cursor">
@@ -67,7 +124,7 @@ The dialog shows icons for various MCP clients, select yours from the list in th
 In the dialog, click **Add to Cursor**. This automatically adds the URL to your Cursor MCP settings and restarts Cursor for you. If you prefer to add it manually, follow the instructions below.
 
 1. Open `.cursor/mcp.json` in your project root. For a global setup, use `~/.cursor/mcp.json`. Create the file if it doesn't exist.
-2. Add the following, replacing the URL with the one you copied in Step 2:
+2. Add the following, replacing the URL with the one you copied:
    ```json
    {
      "mcpServers": {
@@ -77,13 +134,14 @@ In the dialog, click **Add to Cursor**. This automatically adds the URL to your 
      }
    }
    ```
+   See the image below:
+   ![Cursor MCP configuration](/image.png)
+
 3. Restart Cursor, or open **Settings → Features → MCP** and click **Refresh**.
 
 </Tab>
 
 <Tab title="Claude Desktop">
-
-To connect Claude Desktop follow the instructions below:
 
 1. Open your config file:
    - **macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
@@ -104,9 +162,7 @@ To connect Claude Desktop follow the instructions below:
 
 <Tab title="Claude Code">
 
-To connect Claude Code follow the instructions below:
-
-1. Run the following in your terminal, replacing the URL with the one you copied in Step 2:
+1. Run the following in your terminal, replacing the URL with the one you copied:
    ```bash
    claude mcp add willow --transport http "https://<org>.mcp-s.com/mcp?mcp=github"
    ```
@@ -139,11 +195,9 @@ In the dialog, click **Add to VS Code**. This automatically adds the URL to your
 
 <Tab title="Windsurf">
 
-To connect Windsurf, follow the instructions below:
-
 1. Go to **Settings → MCP Servers**.
 2. Click **Add Server** and select **HTTP** as the transport.
-3. Enter the URL you copied in Step 2.
+3. Enter the URL you copied.
 4. Save and restart Windsurf.
 
 </Tab>
@@ -156,57 +210,7 @@ No setup needed. Willow's built-in chat connects automatically. All servers you'
 
 </Tabs>
 
-</Step>
-
-</Steps>
-
-## Dynamic MCP connection
-
-The Dynamic MCP Gateway connects your AI client to all servers enabled in your workspace through a single URL. Rather than targeting one server by name, the gateway selects the most relevant tools automatically based on the context of your conversation. Use this when you want broad access without managing multiple server URLs.
-
-<Steps>
-
-<Step title="Open the connection dialog">
-
-1. Click **Connect MCP** at the bottom of the left sidebar. 
-2. Select the **Dynamic MCP** tab.
-
-  <iframe src="https://app.supademo.com/embed/cmqe6lwpb2j3tqmgj7mkxqxou?embed_v=2&utm_source=embed"></iframe>
-
-</Step>
-
-<Step title="Copy the Dynamic MCP URL">
-
-The Dynamic MCP tab displays your URL. Copy it.
-
-```
-https://<org>.mcp-s.com/dmcp
-```
-Where `<org>` is your organization's subdomain, visible in your browser's address bar when you're logged into Willow (e.g., `acme` in `acme.withwillow.ai`).
-
-</Step>
-
-<Step title="Add the URL to your client">
-
-Use the same client instructions as [MCP Gateway](#mcp-gateway-connection), substituting the Dynamic MCP URL in place of the MCP Gateway URL.
-
-</Step>
-
-</Steps>
-
-## MCP-S CLI connection
-
-The MCP-S CLI runs a local MCP server on your machine and connects your AI client via STDIO transport. Use this method if your client doesn't support HTTP-based MCP, or if your organization requires traffic to stay local rather than routing through a remote endpoint.
-
-To configure the CLI connection, follow these steps:
-
-<iframe src="https://app.supademo.com/embed/cmqe7ze6q01k8xl0kk2meh7gl?embed_v=2&utm_source=embed"></iframe>
-
-1. Click **Connect MCP** at the bottom of the left sidebar. 
-2. Select the **MCP-S CLI** tab.
-3. The tab shows the install command and configuration specific to your organization. Copy and run the commands shown.
-
-## Verify it's working
+### Verify it's working
 
 Once connected, try a prompt that uses one of your enabled tools. If you connected GitHub use something like:
 
