@@ -30,7 +30,11 @@ To connect via the MCP Gateway follow these steps:
 1. Click **Connect MCP** at the bottom of the left sidebar. 
 2. Select the **MCP Gateway** tab.
 
-*[IMAGE: Connect MCP dialog with MCP Gateway tab selected, showing the Streamable HTTP URL]*
+  <iframe 
+  src="https://app.supademo.com/embed/cmqe6lwpb2j3tqmgj7mkxqxou?embed_v=2&utm_source=embed"
+  title="Connect MCP demo"
+  >
+  </iframe>
 
 </Step>
 
@@ -75,8 +79,6 @@ In the dialog, click **Add to Cursor**. This automatically adds the URL to your 
    ```
 3. Restart Cursor, or open **Settings → Features → MCP** and click **Refresh**.
 
-*[IMAGE: Cursor Settings → Features → MCP panel showing the Willow server with a green active indicator]*
-
 </Tab>
 
 <Tab title="Claude Desktop">
@@ -97,8 +99,6 @@ To connect Claude Desktop follow the instructions below:
    }
    ```
 3. Quit and reopen Claude Desktop.
-
-*[IMAGE: Claude Desktop chat showing a Willow tool call inline, e.g. "Used willow: list_pull_requests"]*
 
 </Tab>
 
@@ -171,7 +171,7 @@ The Dynamic MCP Gateway connects your AI client to all servers enabled in your w
 1. Click **Connect MCP** at the bottom of the left sidebar. 
 2. Select the **Dynamic MCP** tab.
 
-*[IMAGE: Connect MCP dialog with Dynamic MCP tab selected, showing the Dynamic MCP URL]*
+  <iframe src="https://app.supademo.com/embed/cmqe6lwpb2j3tqmgj7mkxqxou?embed_v=2&utm_source=embed"></iframe>
 
 </Step>
 
@@ -194,27 +194,17 @@ Use the same client instructions as [MCP Gateway](#mcp-gateway-connection), subs
 
 </Steps>
 
-## MCP CLI connection
+## MCP-S CLI connection
 
-The MCP CLI runs a local MCP server on your machine and connects your AI client via stdio transport. Use this method if your client doesn't support HTTP-based MCP, or if your organization requires traffic to stay local rather than routing through a remote endpoint.
+The MCP-S CLI runs a local MCP server on your machine and connects your AI client via STDIO transport. Use this method if your client doesn't support HTTP-based MCP, or if your organization requires traffic to stay local rather than routing through a remote endpoint.
 
-<Steps>
+To configure the CLI connection, follow these steps:
 
-<Step title="Open the connection dialog">
+<iframe src="https://app.supademo.com/embed/cmqe7ze6q01k8xl0kk2meh7gl?embed_v=2&utm_source=embed"></iframe>
 
-Click **Connect MCP** at the bottom of the left sidebar. Select the **CLI** tab.
-
-*[IMAGE: Connect MCP dialog with CLI tab selected]*
-
-</Step>
-
-<Step title="Follow the CLI setup instructions">
-
-The CLI tab shows the install command and configuration specific to your organization. Copy and run the commands shown.
-
-</Step>
-
-</Steps>
+1. Click **Connect MCP** at the bottom of the left sidebar. 
+2. Select the **MCP-S CLI** tab.
+3. The tab shows the install command and configuration specific to your organization. Copy and run the commands shown.
 
 ## Verify it's working
 
@@ -223,8 +213,6 @@ Once connected, try a prompt that uses one of your enabled tools. If you connect
 > "List my open pull requests."
 
 Your AI client should call a Willow tool to answer it. In Cursor, a tool call indicator appears in the chat sidebar. In Claude Desktop, it appears inline in the conversation.
-
-*[GIF/VIDEO: Cursor prompt triggers a Willow tool call and returns results]*
 
 If tools don't appear, see [Troubleshooting](#troubleshooting).
 

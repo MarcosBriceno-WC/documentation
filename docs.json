@@ -1,11 +1,11 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mintlify Starter Kit",
+  "name": "Willow Documentation",
   "colors": {
-    "primary": "#1A3D30",
-    "light": "#ECE7DE",
-    "dark": "#1A2E26"
+    "primary": "#1A2E26",
+    "light": "#C5FF50",
+    "dark": "#C5FF50"
   },
   "favicon": "/favicon.svg",
   "navigation": {
@@ -14,6 +14,12 @@
         "group": "MCP Servers",
         "pages": [
           "connect-mcp"
+        ]
+      },
+      {
+        "group": "Notes",
+        "pages": [
+          "notes"
         ]
       }
     ],
