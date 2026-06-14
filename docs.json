@@ -3,9 +3,9 @@
   "theme": "mint",
   "name": "Mintlify Starter Kit",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#1A3D30",
+    "light": "#ECE7DE",
+    "dark": "#1A2E26"
   },
   "favicon": "/favicon.svg",
   "navigation": {
@@ -13,7 +13,7 @@
       {
         "group": "MCP Servers",
         "pages": [
-          "connect-mcp-rewrite"
+          "connect-mcp"
         ]
       }
     ],
@@ -25,17 +25,10 @@
     "dark": "/logo/dark.svg"
   },
   "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://app.mintlify.com"
-    }
+     "search": true,
+     "background": {
+       "dark": "#1A2E26"
+     }
   },
   "contextual": {
     "options": [
@@ -51,9 +44,6 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
     }
   }
 }
